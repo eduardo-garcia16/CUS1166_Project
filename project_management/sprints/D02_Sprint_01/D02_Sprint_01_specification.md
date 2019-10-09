@@ -1,6 +1,6 @@
 # Sprint Specification Report (10/9/19)
 ## CUS 1166 Fall 2019
-### Team Members: Eduardo Garcia, Tony Alvarez, Zach Fonse
+### Team Members: Eduardo Garcia, Tony Alvarez, Zach Fonseca
 
 #*Two use cases that we will be working on go as follows:*
 1. Create Test
@@ -9,6 +9,8 @@
 - Content Creator user can add questions (with answers and correct solution) to the test bank database, revise questions in current test bank database, and remove questions in test bank data
 
 ##*Task breakdown goes as follows:*
-Eduardo | Tony | Zach
---------|------|------
-Create Content - Add  and Remove Questions in Test Bank Data | Create Test - List from test bank database, Create Test - function that pulls from test bank database | Create Test - Edit question on current exam from test bank database, Create Content - Revise question in current test bank database
+1. Eduardo
+- Create Content - Add and Remove Questions in Test Bank data
+2. Tony
+- Create Test - List from test bank database, Create Test - function that pulls from test bank database code
+3. Create Test - Edit question on current exam from test bank database, Create Content - Revise question in current test bank database
