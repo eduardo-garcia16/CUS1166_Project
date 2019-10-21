@@ -3,13 +3,13 @@ db = SQLAlchemy()
 
 from flask_table import Table, Col, LinkCol
 
-class course(Table):
+class course(db.model):
     __tablename__ = "course"
     course_id = db.Column(db.Integer, primary_key=True)
     course_name = db.Column(db.String, nullable=False)
     course_content = db.Column(db.String, nullable=False)
 
-class student(Table):
+class student(db.model):
     __tablename__ = "student"
     student_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -21,7 +21,7 @@ class student(Table):
         db.session.commit()
 
 
-class teacher(Table):
+class teacher(db.model):
     __tablename__ = "teacher"
     teacher_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -35,7 +35,7 @@ class teacher(Table):
     student = db.relationship("student", backref="course", lazy=True)
     teacher = db.relationship("teacher", backref="course", lazy=True)
 
-class contentcreator(Table):
+class contentcreator(db.model):
     __tablename__ = "content creator"
     contentcreator_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -48,7 +48,7 @@ class contentcreator(Table):
 
 
 
-class testbank(Table):
+class testbank(db.model):
     __tablename__ = "testbank"
     questions = db.Column(db.String, nullable=False)
     answers = db.Column(db.String, nullable=False)
