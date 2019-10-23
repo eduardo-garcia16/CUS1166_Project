@@ -1,15 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
-from flask_table import Table, Col, LinkCol
-
-class course(db.model):
+class course(db.Model):
     __tablename__ = "course"
     course_id = db.Column(db.Integer, primary_key=True)
     course_name = db.Column(db.String, nullable=False)
     course_content = db.Column(db.String, nullable=False)
 
-class student(db.model):
+class student(db.Model):
     __tablename__ = "student"
     student_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -20,8 +18,7 @@ class student(db.model):
         db.session.add(new_student)
         db.session.commit()
 
-
-class teacher(db.model):
+class teacher(db.Model):
     __tablename__ = "teacher"
     teacher_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -35,7 +32,7 @@ class teacher(db.model):
     student = db.relationship("student", backref="course", lazy=True)
     teacher = db.relationship("teacher", backref="course", lazy=True)
 
-class contentcreator(db.model):
+class contentcreator(db.Model):
     __tablename__ = "content creator"
     contentcreator_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -46,12 +43,10 @@ class contentcreator(db.model):
         db.session.add(new_contentcreator)
         db.session.commit()
 
-
-
-class testbank(db.model):
+class testbank(db.Model):
     __tablename__ = "testbank"
     questions = db.Column(db.String, nullable=False)
     answers = db.Column(db.String, nullable=False)
-    edit = LinkCol('Edit', 'edit' url_kwargs=dict(id='id'))
+
     testbank = db.relationship("testbank", backref="teacher", lazy=True)
     testbank = db.relationship("testbank", backref="contentcreator", lazy=True)
