@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+  <h1>CUS1166 Project</h1>
+</head>
+<body>
+  <div class="container">
+    <div class="mt-1">
+      <h2>Questions in Test Bank</h2>
+      <ul>
+      {% for questions in testbank %}
+        <li> <b>Question: </b>{{testbank.question}} -- <b>Solution: </b><i>{{testbank.answer}}</i> -- <b>Author: </b> {{testbank.author}}</li>
+      {% endfor %}
+      </ul>
+    </div>
+    <div class="mt=1">
+      <form action="{{url_for('add_question')}}" method="post">
+        <input type="text" name="question" placeholder="Question">
+        <input type="text" name="answer" placeholder="Answer">
+        <input type="text" name="author" placeholder="Author">
+        <button type="submit"> Add Question to Testbank </button>
+      </form>
+    </div>
+  </div>
+</body>

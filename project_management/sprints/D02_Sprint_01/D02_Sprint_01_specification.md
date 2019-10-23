@@ -10,7 +10,7 @@
 
 ##*Task breakdown goes as follows:*
 1. Eduardo
-- Create Content - Add and Remove Questions in Test Bank data, incorporating coding compiler
+- Create Content - Add and Remove Questions in Test Bank data, incorporating coding compiler, create html files, add routing code to each file, incorporate functions of form submissions
 2. Tony
 - Create Test - List from test bank database, Create Test - function that pulls from test bank database code
 3. Zach
