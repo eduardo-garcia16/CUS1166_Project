@@ -36,6 +36,8 @@ def add_course():
     db.session.add(course)
     db.session.commit()
 
+    from app.main import bp
+
     courses = Course.query.all()
     return render_template('index.html', courses = courses)
 
