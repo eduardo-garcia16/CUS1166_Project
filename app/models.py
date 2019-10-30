@@ -1,5 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
+from flask_sqlalchemy import current_app
+from app import db
 
 class Course(db.Model):
     __tablename__ = "courses"

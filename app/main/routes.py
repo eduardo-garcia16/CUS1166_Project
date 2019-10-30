@@ -1,20 +1,14 @@
 import sys
-from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
-from models import *
+from flask import Flask, render_template, current_app
+from app import db
+from app.main import bp
 
-app = Flask(__name__)
-app.config.from_object(Config)
-
-db.init_app(app)
-
-@app.route("/")
+@bp.route("/")
 def index():
-    courses = Course.query.all()
-    return render_template('index.html', courses = courses)
+    #courses = Course.query.all()
+    return render_template('index.html')
 
-@app.route("/add_course", methods = ["post"])
+@bp.route("/add_course", methods = ["post"])
 def add_course():
     course_name = request.form.get("course_name")
     course_content = request.form.get("course_content")
@@ -26,7 +20,7 @@ def add_course():
     courses = Course.query.all()
     return render_template('index.html', courses = courses)
 
-@app.route("/cc/add_question", methods = ["post"])
+@bp.route("/cc/add_question", methods = ["post"])
 def add_question():
     question = request.form.get("question")
     answer = request.form.get("course_content")
