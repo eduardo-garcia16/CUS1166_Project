@@ -1,5 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
+from flask_sqlalchemy import current_app
+from app import db
 
 class Course(db.Model):
     __tablename__ = "courses"
@@ -19,7 +19,7 @@ class Student(db.Model):
     __tablename__ = "students"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('course_id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
 
     def add_student(self, name):
         new_student = student(name=name)
