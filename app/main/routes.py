@@ -1,20 +1,34 @@
 import sys
-from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
-from models import *
+from flask import Flask, render_template, current_app, request
+from app import db, create_app
+from app.main import bp
 
-app = Flask(__name__)
-app.config.from_object(Config)
-
-db.init_app(app)
-
-@app.route("/")
+@bp.route("/")
 def index():
-    courses = Course.query.all()
-    return render_template('index.html', courses = courses)
+    #courses = Course.query.all()
+    return render_template('base.html')
 
-@app.route("/add_course", methods = ["post"])
+@bp.route("/create_exam")
+def create_exam():
+    exam_questions = request.form.get("exam_questions")
+
+    exam_question = Testbank(exam_question = exam_questions)
+    db.session.add(exam_question)
+    db.session.commit()
+
+    return render_template('create_exam.html')
+
+@bp.route("/view_exam")
+def view_exam():
+    exam_questions = request.form.get("exam_questions")
+
+    exam_question = Testbank(exam_question = exam_questions)
+    db.session.delete(exam_question)
+    db.session.commit()
+
+    return render_template('view_exam.html')
+
+@bp.route("/add_course", methods = ["post"])
 def add_course():
     course_name = request.form.get("course_name")
     course_content = request.form.get("course_content")
@@ -26,7 +40,7 @@ def add_course():
     courses = Course.query.all()
     return render_template('index.html', courses = courses)
 
-@app.route("/cc/add_question", methods = ["post"])
+@bp.route("/cc/add_question", methods = ["post"])
 def add_question():
     question = request.form.get("question")
     answer = request.form.get("course_content")
