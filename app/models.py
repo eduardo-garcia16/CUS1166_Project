@@ -54,3 +54,25 @@ class Testbank(db.Model):
     question = db.Column(db.String, nullable=False)
     answer = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
+
+class teacherUser(db.Model):
+    __tablename__ = 'teaacherUsers'
+    username = db.Column(db.String, index=False, unique=True, nullable=False)
+    email = db.Column(db.String,index=True, unique=True, nullable=False)
+    bio = db.Column(db.Text, index=False, unique=False, nullable=True)
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+class globaltestbank(db.model):
+    __tablename__ = "globaltestbank"
+    questions = db.Column(db.String, nullable=False)
+    answers = db.Column(db.String, nullable=False)
+    testbank = db.relationship("testbank", backref="teacher", lazy=True)
+    testbank = db.relationship("testbank", backref="contentcreator", lazy=True)
+
+class teachertestbank(db.model):
+    __tablename__ = "teachertestbank"
+    questions = db.Column(db.String, nullable=False)
+    answers = db.Column(db.String, nullable=False)
+    testbank = db.relationship("testbank", backref="teacher", lazy=True)
+    testbank = db.relationship("testbank", backref="contentcreator", lazy=True)
