@@ -44,13 +44,21 @@ class ContentCreator(db.Model):
         db.session.commit()
 
     def add_question(self, question, answer):
-        new_question = Testbank(questions = question, answers = answers, author = self.id)
+        new_question = Testbank(questions = question, answers = answers, author = self.name)
         db.session.add(new_question)
         db.session.commit()
 
-class Testbank(db.Model):
-    __tablename__ = "testbank"
+class Question(db.Model):
+    __tablename__ = "questions"
     id = db.Column(db.Integer, primary_key = True)
     question = db.Column(db.String, nullable=False)
     answer = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
+
+    tests = db.relationship("Tests", backref="questions", lazy=True)
+
+class Test(db.Model):
+    __tablename__ = "tests"
+    id = db.Column(db.Integer, primary_key=True)
+    test_id = db.Column(db.Integer, nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)

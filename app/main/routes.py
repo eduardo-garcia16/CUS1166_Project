@@ -12,7 +12,7 @@ def index():
 def create_exam():
     exam_questions = request.form.get("exam_questions")
 
-    for questions in exam_questions
+    for questions in exam_questions:
         db.session.add(Testbank[questions])
 
     db.session.commit()
