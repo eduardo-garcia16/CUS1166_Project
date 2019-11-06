@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1> Exam </h1>
+  <div class="container">
+    <div class="mt-1">
+      <ul>
+      {% for questions in exam %}
+        <li> <b>Question: </b>{{exam.question}}</li>
+        <textarea rows="4" cols="50">
+          Your answer
+        </textarea>
+      {% endfor %}
+      </ul>
+    </div>
+  <h2> Once you are finished, click Submit Exam </h2>
+  <button type="button" onlick="alert('Exam submitted!')">Submit Exam</button>
+{% endblock %}
