@@ -12,8 +12,9 @@ def index():
 def create_exam():
     exam_questions = request.form.get("exam_questions")
 
-    exam_question = Testbank(exam_question = exam_questions)
-    db.session.add(exam_question)
+    for questions in exam_questions
+        db.session.add(Testbank[questions])
+
     db.session.commit()
 
     return render_template('create_exam.html')
