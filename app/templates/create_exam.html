@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1> Exam Creation </h1>
-  <h3> Please choose from the following questions in the testbank </h3>
-  <font color="red"> Please insert desired questions in box, <b> seperated by commas </b></font>
+<h1> Exam Creation Page</h1>
+  <h3> Follow the instrcutions below to create your exam. </h3>
+  <font color="red"> In the first box, enter the unique id for your exam. In the next, insert your desired questions in box, <b> seperated by commas. </b></font>
 <div class="mt=1">
   <form action="{{url_for('view_exam')}}" method="post">
+  <input type="text" name="name" placeholder="1st Exam, etc">
     <input type="text" name="name" placeholder="1, 3, 5, 11, etc">
-    <button type="submit"> Add Questions </button>
+    <button type="submit"> Create Exam </button>
   </form>
 </div>
 {% for questions in Testbank %}
