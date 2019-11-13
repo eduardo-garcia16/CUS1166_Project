@@ -26,6 +26,8 @@ class Student(db.Model):
         db.session.add(new_student)
         db.session.commit()
 
+    results = db.relationship("Results", backref = "students", lazy=True)
+
 
 class Teacher(db.Model):
     __tablename__ = "teachers"
@@ -62,3 +64,12 @@ class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     test_id = db.Column(db.Integer, nullable=False)
     question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
+
+    results = db.relationship("Results", backref = "tests", lazy=True)
+
+class Result(db.Model):
+    __tablename__ == "results"
+    id = db.Column(db.Integer, primary_key=True)
+    result = db.Column(db.String, nullable=False)
+    student_name = db.Column(db.String, db.ForeignKey('students.name'), nullable=False)
+    questions_id = db.Column(db.Integer, db.ForeignKey('tests.question_id'), nullable=False)

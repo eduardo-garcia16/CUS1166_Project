@@ -47,9 +47,36 @@ def add_question():
     answer = request.form.get("course_content")
     author = request.form.get("author")
 
-    question = Testbank(question = question, answer = answer, author = author)
+    question = Question(question = question, answer = answer, author = author)
     db.session.add(question)
     db.session.commit()
 
-    questions = Testbank.query.all()
+    questions = Question.query.all()
     return render_template('testbank.html', testbank = questions)
+
+@bp.route("/test", methods = ["post"])
+def exam():
+    test_id = request.form.get("test_id")
+
+    return render_template('exam.html', test_id = test_id)
+
+@bp.route("/test/<string:test_id>", methods = ["get"])
+def take_exam(test_id):
+    exists = db.session.query(Test.id).filter_by(test_id = test_id).scalar() is not None
+
+    if exists == False:
+        return redirect(url_for(exam))
+
+    questions = Test.query.filter_by(test_id = test_id)
+
+    return render_template('take_exam.html', questions = questions, test_id = test_id)
+
+@bp.route("/test/<string:test_id>", methods=["post"])
+def add_result():
+    result = request.form.get("result")
+
+    result = Result(result = result)
+    db.session.add(result)
+    db.session.commit()
+
+    return render_template('exam.html')
