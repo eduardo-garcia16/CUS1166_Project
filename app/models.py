@@ -53,3 +53,50 @@ class ContentCreator(db.Model):
         new_question = Testbank(questions = question, answers = answers, author = self.id)
         db.session.add(new_question)
         db.session.commit()
+
+class Questionbank(db.model):
+    tablename = "Questionbank"
+    id = db.Column(db.Integer, primary_key = True)
+    questions = db.Column(db.String, nullable=False)
+    answers = db.Column(db.String, nullable=False)
+    testbank = db.relationship("Questionbank", backref="Testbank", lazy=True)
+    question_owner = db.CharField(max_length=30)
+    question_type = db.CharField(max_length=30)
+    question_id = db.CharField(max_length=30)
+    testbank = db.relationship("Testbank", backref="Questionbank", lazy = true)
+    def add_Testbank(id, question, answer, author, question_id)
+    new_Testbank=Testbank(id=id,question=question, answer=answer, author=author, question_id=question_id)
+    db.session.add(new_Testbank)
+    db.session.commit()
+    def __str__(self):
+        return "%s %s" % (self.question_type, self.question_owner)
+        q = Question(question_owner='cc', question_type='global', question_id='1')
+        q.save()
+        q2 = Question(question_owner='cc', question_type='global', question_id='2')
+        q2.save()
+        q3 = Question(question_owner='cc', question_type='global', question_id='3')
+        q3.save()
+
+class Testbank(db.Model):
+    class Testbank(db.Model):
+    tablename = "Testbank"
+    id = db.Column(db.Integer, primary_key = True)
+    question = db.Column(db.String, nullable=False)
+    answer = db.Column(db.String, nullable=False)
+    author = db.Column(db.String, nullable=False)
+    quesion_id = db.Column(db.Integer, db.ForeignKey('test.id'))
+        t = Test(question_owner='teacher', question_type='cloned', question_id='1', test_id='1')
+        t.save()
+        t = Test(question_owner='teacher', question_type='cloned', question_id='2', test_id='1')
+        t.save()
+        t = Test(question_owner='teacher', question_type='cloned', question_id='3', test_id='1')
+        t.save()
+        new_test = q.test_set.create(test_id="Our first test")
+
+class teacherUser(db.Model):
+    __tablename__ = 'teacherUsers'
+    username = db.Column(db.String, index=False, unique=True, nullable=False)
+    email = db.Column(db.String,index=True, unique=True, nullable=False)
+    bio = db.Column(db.Text, index=False, unique=False, nullable=True)
+    def __repr__(self):
+        return '<User {}>'.format(self.username)

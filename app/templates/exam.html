@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Enter unique test ID:</h2>
+  <div class="mt=1">
+    <form action="{{url_for('take_exam')}}" method="post">
+      <input type="text" name="test_id" placeholder="Test ID">
+      <button type="submit"> Take Test </button>
+    </form>
+  </div>
+{% endblock %}
