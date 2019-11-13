@@ -58,8 +58,8 @@ class Questionbank(db.model):
     question_type = db.CharField(max_length=30)
     question_id = db.CharField(max_length=30)
     testbank = db.relationship("Testbank", backref="Questionbank", lazy = true)
-    def add_Testbank()
-    new_Testbank=Testbank(id = id, question = question, answer=answer, author=author, question_id=question_id)
+    def add_Testbank(id, question, answer, author, question_id)
+    new_Testbank=Testbank(id=id,question=question, answer=answer, author=author, question_id=question_id)
     db.session.add(new_Testbank)
     db.session.commit()
     def __str__(self):
