@@ -11,6 +11,7 @@ def create_app(config_class = Config):
 
     db.init_app(app)
     migrade = Migrate(app, db)
+    manage = ManagingCourse(app)
 
     #
     from app.main import bp as main_routes_bp
