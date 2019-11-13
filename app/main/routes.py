@@ -12,8 +12,20 @@ def index():
 def view_classes():
     classes = request.form.get("classes")
 
-    view_classes = Testbank(view_classes = view_classes)
-    db.session.delete(view_classes)
+    for questions in exam_questions:
+        db.session.add(Testbank[questions])
+
+    db.session.commit()
+
+    return render_template('create_exam.html')
+
+@bp.route("/view_exam")
+def view_exam():
+    exam_questions = request.form.get("exam_questions")
+
+    exam_question = Testbank(exam_question = exam_questions)
+    db.session.delete(exam_question)
+
     db.session.commit()
 
     return render_template('view_exam.html')
@@ -46,13 +58,39 @@ def remove_course():
 def add_topic():
     topic = request.form.get("topic")
     author = request.form.get("author")
-
     topic = Testbank(topic = topic, author = author)
     db.session.add(topic)
     db.session.commit()
 
     topic = Testbank.query.all()
     return render_template('testbank.html', testbank = questions)
+
+@bp.route("/test", methods = ["post"])
+def exam():
+    test_id = request.form.get("test_id")
+
+    return render_template('exam.html', test_id = test_id)
+
+@bp.route("/test/<string:test_id>", methods = ["get"])
+def take_exam(test_id):
+    exists = db.session.query(Test.id).filter_by(test_id = test_id).scalar() is not None
+
+    if exists == False:
+        return redirect(url_for(exam))
+
+    questions = Test.query.filter_by(test_id = test_id)
+
+    return render_template('take_exam.html', questions = questions, test_id = test_id)
+
+@bp.route("/test/<string:test_id>", methods=["post"])
+def add_result():
+    result = request.form.get("result")
+
+    result = Result(result = result)
+    db.session.add(result)
+    db.session.commit()
+
+    return render_template('exam.html')
 
 @bp.route("/contact", methods=["GET", "POST"])
 def contact(form):

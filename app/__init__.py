@@ -8,7 +8,7 @@ def create_app(config_class = Config):
     app.config.from_object(config_class)
 
     db.init_app(app)
-    
+
     migrate = Migrate(app, db)
     db = SQLAlchemy(app)
     manage = ManagingCourse(app)

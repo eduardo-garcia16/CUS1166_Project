@@ -17,12 +17,14 @@ class Student(db.Model):
     name = db.Column(db.String, nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
     student_number = db.Column(db.Integer, primary_key = True)
+    
+    results = db.relationship("Results", backref = "students", lazy=True)
 
     def add_student(self, name):
         new_student = student(name=name)
         db.session.add(new_student)
         db.session.commit()
-
+        
     def remove_student(self, name):
         old_student = student(name=name)
         db.session.remove(old_student)
@@ -50,7 +52,7 @@ class ContentCreator(db.Model):
         db.session.commit()
 
     def add_question(self, question, answer):
-        new_question = Testbank(questions = question, answers = answers, author = self.id)
+        new_question = Testbank(questions = question, answers = answers, author = self.name)
         db.session.add(new_question)
         db.session.commit()
 
@@ -81,17 +83,28 @@ class Testbank(db.Model):
     class Testbank(db.Model):
     tablename = "Testbank"
     id = db.Column(db.Integer, primary_key = True)
-    question = db.Column(db.String, nullable=False)
-    answer = db.Column(db.String, nullable=False)
-    author = db.Column(db.String, nullable=False)
-    quesion_id = db.Column(db.Integer, db.ForeignKey('test.id'))
-        t = Test(question_owner='teacher', question_type='cloned', question_id='1', test_id='1')
-        t.save()
-        t = Test(question_owner='teacher', question_type='cloned', question_id='2', test_id='1')
-        t.save()
-        t = Test(question_owner='teacher', question_type='cloned', question_id='3', test_id='1')
-        t.save()
+    test_id = db.Column(db.Integer, nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('Questionbank.id'), nullable=False)
+
+    tests = db.relationship("Tests", backref="Testbank", lazy=True)
+    results = db.relationship("Results", backref = "tests", lazy=True)
+
+
+   def add_question(db.Model):
+      t = Test(question_owner='teacher', question_type='cloned', question_id='1', test_id='1')
+       t.save()
+       t = Test(question_owner='teacher', question_type='cloned', question_id='2', test_id='1')
+       t.save()
+       t = Test(question_owner='teacher', question_type='cloned', question_id='3', test_id='1')
+       t.save()
         new_test = q.test_set.create(test_id="Our first test")
+
+class Result(db.Model):
+    __tablename__ == "results"
+    id = db.Column(db.Integer, primary_key=True)
+    result = db.Column(db.String, nullable=False)
+    student_name = db.Column(db.String, db.ForeignKey('students.name'), nullable=False)
+    questions_id = db.Column(db.Integer, db.ForeignKey('tests.question_id'), nullable=False)
 
 class teacherUser(db.Model):
     __tablename__ = 'teacherUsers'
