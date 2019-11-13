@@ -48,6 +48,28 @@ class ContentCreator(db.Model):
         db.session.add(new_question)
         db.session.commit()
 
+class Questionbank(db.model):
+    tablename = "Questionbank"
+    id = db.Column(db.Integer, primary_key = True)
+    questions = db.Column(db.String, nullable=False)
+    answers = db.Column(db.String, nullable=False)
+    testbank = db.relationship("Questionbank", backref="Testbank", lazy=True)
+    question_owner = db.CharField(max_length=30)
+    question_type = db.CharField(max_length=30)
+    question_id = db.CharField(max_length=30)
+    testbank = db.relationship("Testbank", backref="Questionbank", lazy = true)
+    def add_Testbank()
+    new_Testbank=Testbank(id = id, question = question, answer=answer, author=author, question_id=question_id)
+    db.session.add(new_Testbank)
+    db.session.commit()
+    def __str__(self):
+        return "%s %s" % (self.question_type, self.question_owner)
+        q = Question(question_owner='cc', question_type='global', question_id='1')
+        q.save()
+        q2 = Question(question_owner='cc', question_type='global', question_id='2')
+        q2.save()
+        q3 = Question(question_owner='cc', question_type='global', question_id='3')
+        q3.save()
 
 class Testbank(db.Model):
     class Testbank(db.Model):
@@ -64,24 +86,6 @@ class Testbank(db.Model):
         t = Test(question_owner='teacher', question_type='cloned', question_id='3', test_id='1')
         t.save()
         new_test = q.test_set.create(test_id="Our first test")
-
-class Questionbank(db.model):
-    tablename = "Questionbank"
-    id = db.Column(db.Integer, primary_key = True)
-    questions = db.Column(db.String, nullable=False)
-    answers = db.Column(db.String, nullable=False)
-    testbank = db.relationship("Questionbank", backref="Testbank", lazy=True)
-    question_owner = db.CharField(max_length=30)
-    question_type = db.CharField(max_length=30)
-    question_id = db.CharField(max_length=30)
-    def __str__(self):
-        return "%s %s" % (self.question_type, self.question_owner)
-        q = Question(question_owner='cc', question_type='global', question_id='1')
-        q.save()
-        q2 = Question(question_owner='cc', question_type='global', question_id='2')
-        q2.save()
-        q3 = Question(question_owner='cc', question_type='global', question_id='3')
-        q3.save()
 
 class teacherUser(db.Model):
     __tablename__ = 'teacherUsers'
