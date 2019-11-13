@@ -6,9 +6,13 @@
   <font color="red"> In the first box, enter the unique id for your exam. In the next, insert your desired questions in box, <b> seperated by commas. </b></font>
 <div class="mt=1">
   <form action="{{url_for('view_exam')}}" method="post">
-  <input type="text" name="name" placeholder="1st Exam, etc">
-    <input type="text" name="name" placeholder="1, 3, 5, 11, etc">
-    <button type="submit"> Create Exam </button>
-  </form>
+  Exam ID:<br>
+  <input type="text" name="name" placeholder="First Exam, etc">
+  <br>
+  Desired Questions:<br>
+  <input type="text" name="name" placeholder="1, 3, 5, 11, etc">
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
 </div>
 {% for questions in Testbank %}
